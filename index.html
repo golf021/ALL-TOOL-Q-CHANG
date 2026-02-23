@@ -42,7 +42,7 @@
       margin: 0 auto;
       position: relative;
       z-index: 2;
-      padding-bottom: 60px;
+      padding-bottom: 80px;
     }
     
     .header {
@@ -105,21 +105,13 @@
       text-decoration: none;
       color: var(--text-color);
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       cursor: pointer;
-    }
-    
-    .card::before {
-      content: none;
     }
     
     .card:hover {
       transform: translateY(-3px);
       box-shadow: none;
-    }
-    
-    .card:hover::before {
-      opacity: 0;
     }
     
     .card-image {
@@ -156,6 +148,63 @@
     .card:hover .card-title {
       background: rgba(0, 0, 0, 0.5);
       color: #ffd700;
+    }
+    
+    /* ปุ่มคัดลอกลิงก์สำหรับการ์ดคู่มือบัตรเครดิต */
+    .copy-link-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #4a6cf7;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s ease;
+      border: 2px solid white;
+      z-index: 10;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    .card:hover .copy-link-btn {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    
+    .copy-link-btn:hover {
+      background: #ffd700;
+      color: #000;
+      transform: scale(1.2) !important;
+    }
+    
+    /* Toast แจ้งเตือน */
+    .toast-message {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: #ffd700;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 14px;
+      z-index: 1001;
+      border: 1px solid #ffd700;
+      backdrop-filter: blur(5px);
+      animation: fadeInOut 2s ease;
+    }
+    
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
     }
     
     /* สไตล์สำหรับคู่มือแบบมีรูป */
@@ -350,6 +399,187 @@
       right: 20px;
     }
     
+    /* To-Do List - มุมขวาล่าง */
+    .todo-container {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 280px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      border: 2px solid #ffd700;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .todo-container.minimized {
+      width: 60px;
+      height: 60px;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+    
+    .todo-container.minimized .todo-header span,
+    .todo-container.minimized .todo-input,
+    .todo-container.minimized .todo-list {
+      display: none;
+    }
+    
+    .todo-container.minimized .todo-header {
+      padding: 15px;
+      justify-content: center;
+    }
+    
+    .todo-container.minimized .todo-header i {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .todo-header {
+      background: linear-gradient(135deg, #ffd700, #ffb347);
+      padding: 12px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #000;
+      font-weight: 600;
+    }
+    
+    .todo-header i {
+      font-size: 18px;
+    }
+    
+    .todo-header span {
+      flex: 1;
+      text-align: left;
+    }
+    
+    .toggle-todo {
+      background: none;
+      border: none;
+      color: #000;
+      cursor: pointer;
+      font-size: 16px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .toggle-todo:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    
+    .todo-input {
+      display: flex;
+      padding: 10px;
+      gap: 5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .todo-input input {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-family: 'Kanit', sans-serif;
+    }
+    
+    .todo-input input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .todo-input input:focus {
+      outline: 2px solid #ffd700;
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .add-todo {
+      background: #ffd700;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      color: #000;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+    }
+    
+    .add-todo:hover {
+      transform: scale(1.1);
+      background: #ffed4e;
+    }
+    
+    .todo-list {
+      list-style: none;
+      padding: 10px;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+    
+    .todo-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      margin-bottom: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      transition: all 0.3s;
+      word-break: break-word;
+      text-align: left;
+    }
+    
+    .todo-list li:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .todo-list li.completed span {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+    
+    .todo-list li input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #ffd700;
+    }
+    
+    .todo-list li span {
+      flex: 1;
+      font-size: 14px;
+    }
+    
+    .delete-todo {
+      background: none;
+      border: none;
+      color: #ff6b6b;
+      cursor: pointer;
+      font-size: 14px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .delete-todo:hover {
+      background: rgba(255, 107, 107, 0.3);
+      transform: scale(1.1);
+    }
+    
     /* Footer */
     .footer {
       margin-top: 25px;
@@ -364,7 +594,7 @@
       text-align: center;
       background: rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(5px);
-      z-index: 100;
+      z-index: 997;
     }
     
     /* อนุภาคพื้นหลัง */
@@ -483,6 +713,10 @@
         width: 50px;
         height: 50px;
       }
+      
+      .todo-container {
+        width: 240px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -511,6 +745,11 @@
       .manual-title {
         font-size: 1.2rem;
       }
+      
+      .todo-container {
+        width: 200px;
+        bottom: 70px;
+      }
     }
     
     @media (max-width: 360px) {
@@ -537,6 +776,20 @@
     <img class="modal-content" id="modalImage">
     <div class="modal-caption" id="modalCaption"></div>
   </div>
+
+  <!-- To-Do List Widget -->
+  <div class="todo-container" id="todoContainer">
+    <div class="todo-header">
+      <i class="fas fa-check-circle"></i>
+      <span>Note</span>
+      <button class="toggle-todo" id="toggleTodo"><i class="fas fa-minus"></i></button>
+    </div>
+    <div class="todo-input">
+      <input type="text" id="todoInput" placeholder="พิมพ์สิ่งที่ต้องทำ...">
+      <button class="add-todo" id="addTodo"><i class="fas fa-plus"></i></button>
+    </div>
+    <ul class="todo-list" id="todoList"></ul>
+  </div>
   
   <div class="container">
     <div class="header">
@@ -558,12 +811,12 @@
       
       <a href="https://docs.google.com/spreadsheets/d/13lRuHOcs5g9eEjkIhaHM7FkUVjkFgDKQ4JlwgM0XYjc/edit?gid=432688577#gid=432688577" target="_blank" class="card">
         <img src="https://i.postimg.cc/TYtQYrCR/Untitled.png" alt="Shop Service" class="card-image">
-        <span class="card-title">Shop Service Pending Jobs ติดตามขาย EXCELL *1</span>
+        <span class="card-title">ติดตามขาย EXCELL *1</span>
       </a>
       
       <a href="https://golf021.github.io/-Q-CHANG/" target="_blank" class="card">
         <img src="https://i.postimg.cc/k4Vvj4Sm/Untitled-1.jpg" alt="ตัวช่วยสรุปติดตามขาย" class="card-image">
-        <span class="card-title">ตัวช่วย สรุปติดตามขาย ใช้งานร่วมกับ *1</span>
+        <span class="card-title">ช่วยสรุปขายใช้ร่วมกับ *1</span>
       </a>
       
       <a href="https://docs.google.com/spreadsheets/d/1lGTBNMt1Cuc77qPRFjtvS9kOXBrPboPovKIYZ9adZ6g/edit?gid=0#gid=0" target="_blank" class="card">
@@ -579,6 +832,15 @@
       <a href="#" class="card manual-trigger" data-manual="qr">
         <img src="https://i.postimg.cc/k4Vvj4Sm/Untitled-1.jpg" alt="คู่มือ QR" class="card-image">
         <span class="card-title">คู่มือ ออก QR CODE ชำระ</span>
+      </a>
+
+      <a href="#" class="card manual-trigger" data-manual="credit" id="creditCard">
+        <img src="https://i.postimg.cc/k4Vvj4Sm/Untitled-1.jpg" alt="คู่มือบัตรเครดิต" class="card-image">
+        <span class="card-title">คู่มือ ชำระ ผ่านบัตรเครดิต</span>
+        <!-- ปุ่มคัดลอกลิงก์ -->
+        <div class="copy-link-btn" onclick="event.preventDefault(); event.stopPropagation(); copyPageLink();">
+          <i class="fas fa-link"></i>
+        </div>
       </a>
 
       <a href="https://golf021.github.io/Estimate-Roof01/" target="_blank" class="card">
@@ -614,6 +876,7 @@
       <a href="https://golf021.github.io/my-map/" class="card">
         <img src="https://i.postimg.cc/CLHSMfRT/il1.png" alt="SLA Installation" class="card-image">
         <span class="card-title">MAP QR</span>
+      </a>
       
       <a href="https://drive.google.com/drive/folders/1NHGskKEw0R2YTaEjj_Bmw3_V9BaDltZt?usp=sharing" target="_blank" class="card">
         <img src="https://i.postimg.cc/X7hzdCM6/image.jpg" alt="SLA Installation" class="card-image">
@@ -623,6 +886,11 @@
       <a href="https://www.radio-thai.com/" target="_blank" class="card">
         <img src="https://i.postimg.cc/tg1qWKvp/1456.jpg" alt="วิทยุออนไลน์" class="card-image">
         <span class="card-title">วิทยุออนไลน์</span>
+      </a>
+
+      <a href="https://tv.trueid.net/th-th" target="_blank" class="card">
+        <img src="https://i.postimg.cc/N0SgvKZx/download.jpg" alt="วิทยุออนไลน์" class="card-image">
+        <span class="card-title">ทีวีออนไลน์</span>
       </a>
     </div>
     
@@ -804,9 +1072,110 @@
       </div>
     </div>
     
+    <!-- ส่วนแสดงรูปภาพคู่มือการชำระผ่านบัตรเครดิต (8 รูป) -->
+    <div class="manual-card" id="manualCredit" style="display: none;">
+      <div class="manual-header">
+        <div class="manual-title">
+          <i class="fas fa-credit-card"></i>
+          <span>คู่มือการชำระผ่านบัตรเครดิต (8 ขั้นตอน)</span>
+        </div>
+        <div class="close-manual" data-close="credit">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+      
+      <div class="manual-images">
+        <!-- รูปที่ 1: 1.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="0">
+          <img src="https://i.postimg.cc/rpfCgk0y/1.jpg" alt="ขั้นตอนที่ 1" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-1-circle"></i> ขั้นตอนที่ 1: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 2: 2.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="1">
+          <img src="https://i.postimg.cc/KjMPZ39c/2.jpg" alt="ขั้นตอนที่ 2" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-2-circle"></i> ขั้นตอนที่ 2: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 3: 3.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="2">
+          <img src="https://i.postimg.cc/L4YBkGH8/3.jpg" alt="ขั้นตอนที่ 3" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-3-circle"></i> ขั้นตอนที่ 3: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 4: 4.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="3">
+          <img src="https://i.postimg.cc/htr9PBrF/4.jpg" alt="ขั้นตอนที่ 4" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-4-circle"></i> ขั้นตอนที่ 4: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 5: 5.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="4">
+          <img src="https://i.postimg.cc/ydwRrYV8/5.jpg" alt="ขั้นตอนที่ 5" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-5-circle"></i> ขั้นตอนที่ 5: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 6: 6.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="5">
+          <img src="https://i.postimg.cc/bYtkSbTb/6.jpg" alt="ขั้นตอนที่ 6" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-6-circle"></i> ขั้นตอนที่ 6: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 7: 7.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="6">
+          <img src="https://i.postimg.cc/y8VZGGzP/7.jpg" alt="ขั้นตอนที่ 7" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-7-circle"></i> ขั้นตอนที่ 7: ตามรูปแนบ
+          </div>
+        </div>
+        
+        <!-- รูปที่ 8: 8.jpg -->
+        <div class="manual-image-container" data-manual="credit" data-index="7">
+          <img src="https://i.postimg.cc/Jh0BrB0C/8.jpg" alt="ขั้นตอนที่ 8" class="manual-image">
+          <div class="image-caption">
+            <i class="fas fa-8-circle"></i> ขั้นตอนที่ 8: ตามรูปแนบ
+          </div>
+        </div>
+      </div>
+      
+      <!-- คำอธิบายเพิ่มเติม -->
+      <div style="margin-top: 25px; padding: 15px; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(0,0,0,0.3)); border-radius: 12px; text-align: left; border: 1px solid rgba(255,215,0,0.3);">
+        <h4 style="color: #ffd700; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+          <i class="fas fa-info-circle" style="font-size: 1.3rem;"></i>
+          <span>วิธีการใช้งานคู่มือชำระผ่านบัตรเครดิต:</span>
+        </h4>
+        <ul style="list-style: none; padding-left: 0; display: grid; gap: 12px;">
+          <li style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 30px;">
+            <i class="fas fa-hand-pointer" style="color: #ffd700; font-size: 1.2rem;"></i>
+            <span>คลิกที่รูปเพื่อดูขนาดใหญ่ พร้อมปุ่มเลื่อนซ้าย-ขวา</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 30px;">
+            <i class="fas fa-arrows-alt" style="color: #ffd700; font-size: 1.2rem;"></i>
+            <span>สามารถกดปุ่มลูกศรบนคีย์บอร์ดเพื่อเลื่อนรูปได้</span>
+          </li>
+          <li style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); padding: 8px 15px; border-radius: 30px;">
+            <i class="fas fa-shield-alt" style="color: #ffd700; font-size: 1.2rem;"></i>
+            <span>กรุณากรอกข้อมูลบัตรเครดิตให้ถูกต้อง ระบบมีความปลอดภัยสูง</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <!-- Footer -->
     <div class="footer">
-      <p>ผู้จัดทำ Anuwat Ch. เวปนี้จัดทำขึ้นเพื่อ ให้เพื่อนๆ น้องๆ ในทีมงานได้เข้าใช้งาน ทำงานให้สนุกและมีความสุขกับสิ่งที่ทำ แล้วผลงานที่ออกมาจะดีเอง | อัปเดตล่าสุด: <span id="lastUpdated">วันนี้</span></p>
+      <p>ผู้จัดทำ Anuwat Ch. | อัปเดตล่าสุด: <span id="lastUpdated">วันนี้</span></p>
     </div>
   </div>
 
@@ -816,6 +1185,7 @@
     const manualTriggers = document.querySelectorAll('.manual-trigger');
     const manualSales = document.getElementById('manualSales');
     const manualQR = document.getElementById('manualQR');
+    const manualCredit = document.getElementById('manualCredit');
     const closeButtons = document.querySelectorAll('.close-manual');
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImage');
@@ -823,6 +1193,13 @@
     const closeModal = document.querySelector('.close-modal');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    
+    // To-Do List Elements
+    const todoContainer = document.getElementById('todoContainer');
+    const toggleTodo = document.getElementById('toggleTodo');
+    const todoInput = document.getElementById('todoInput');
+    const addTodo = document.getElementById('addTodo');
+    const todoList = document.getElementById('todoList');
     
     // ข้อมูลรูปภาพแยกตามประเภทคู่มือ
     const imageSets = {
@@ -842,11 +1219,43 @@
         { src: 'https://i.postimg.cc/PfLytkH2/5.jpg', caption: 'ขั้นตอนที่ 5: ตามรูปแนบ' },
         { src: 'https://i.postimg.cc/05LfjH22/6.jpg', caption: 'ขั้นตอนที่ 6: ตามรูปแนบ' },
         { src: 'https://i.postimg.cc/wjzQcymW/7.jpg', caption: 'ขั้นตอนที่ 7: ตามรูปแนบ' }
+      ],
+      credit: [
+        { src: 'https://i.postimg.cc/rpfCgk0y/1.jpg', caption: 'ขั้นตอนที่ 1: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/KjMPZ39c/2.jpg', caption: 'ขั้นตอนที่ 2: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/L4YBkGH8/3.jpg', caption: 'ขั้นตอนที่ 3: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/htr9PBrF/4.jpg', caption: 'ขั้นตอนที่ 4: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/ydwRrYV8/5.jpg', caption: 'ขั้นตอนที่ 5: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/bYtkSbTb/6.jpg', caption: 'ขั้นตอนที่ 6: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/y8VZGGzP/7.jpg', caption: 'ขั้นตอนที่ 7: ตามรูปแนบ' },
+        { src: 'https://i.postimg.cc/Jh0BrB0C/8.jpg', caption: 'ขั้นตอนที่ 8: ตามรูปแนบ' }
       ]
     };
     
     let currentImageSet = 'sales';
     let currentImageIndex = 0;
+
+    // ฟังก์ชันแสดง Toast
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast-message';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 2000);
+    }
+
+    // ฟังก์ชันคัดลอกลิงก์
+    window.copyPageLink = function() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('คัดลอกลิงก์เรียบร้อย ✓');
+      }).catch(() => {
+        showToast('ไม่สามารถคัดลอกลิงก์ได้');
+      });
+    };
 
     // Card Click - Open Link Directly (สำหรับการ์ดอื่นๆ ที่ไม่ใช่คู่มือ)
     cards.forEach(card => {
@@ -868,6 +1277,7 @@
         // ซ่อนคู่มือทั้งหมดก่อน
         manualSales.style.display = 'none';
         manualQR.style.display = 'none';
+        manualCredit.style.display = 'none';
         
         // แสดงคู่มือที่เลือก
         if (manualType === 'sales') {
@@ -878,6 +1288,10 @@
           manualQR.style.display = 'block';
           manualQR.scrollIntoView({ behavior: 'smooth', block: 'start' });
           trigger.querySelector('.card-title').innerHTML = 'ซ่อนคู่มือ QR <i class="fas fa-chevron-up" style="font-size: 10px;"></i>';
+        } else if (manualType === 'credit') {
+          manualCredit.style.display = 'block';
+          manualCredit.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          trigger.querySelector('.card-title').innerHTML = 'ซ่อนคู่มือบัตรเครดิต <i class="fas fa-chevron-up" style="font-size: 10px;"></i>';
         }
         
         // รีเซ็ตข้อความปุ่มอื่นๆ
@@ -887,6 +1301,8 @@
               otherTrigger.querySelector('.card-title').innerHTML = 'คู่มือการติดตามการขาย';
             } else if (otherTrigger.getAttribute('data-manual') === 'qr') {
               otherTrigger.querySelector('.card-title').innerHTML = 'คู่มือการชำระ QR CODE';
+            } else if (otherTrigger.getAttribute('data-manual') === 'credit') {
+              otherTrigger.querySelector('.card-title').innerHTML = 'คู่มือ ชำระ ผ่านบัตรเครดิต';
             }
           }
         });
@@ -904,6 +1320,9 @@
         } else if (manualType === 'qr') {
           manualQR.style.display = 'none';
           document.querySelector('[data-manual="qr"] .card-title').innerHTML = 'คู่มือการชำระ QR CODE';
+        } else if (manualType === 'credit') {
+          manualCredit.style.display = 'none';
+          document.querySelector('[data-manual="credit"] .card-title').innerHTML = 'คู่มือ ชำระ ผ่านบัตรเครดิต';
         }
       });
     });
@@ -970,7 +1389,74 @@
     prevBtn.addEventListener('click', () => changeImage(-1));
     nextBtn.addEventListener('click', () => changeImage(1));
 
-    // สร้างอนุภาคพื้นหลัง
+    // ===== To-Do List Functions =====
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+    function renderTodos() {
+      todoList.innerHTML = '';
+      todos.forEach((todo, index) => {
+        const li = document.createElement('li');
+        li.className = todo.completed ? 'completed' : '';
+        
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = todo.completed;
+        checkbox.addEventListener('change', () => toggleTodoComplete(index));
+        
+        const span = document.createElement('span');
+        span.textContent = todo.text;
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-todo';
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+        deleteBtn.addEventListener('click', () => deleteTodo(index));
+        
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        todoList.appendChild(li);
+      });
+    }
+
+    function addNewTodo() {
+      const text = todoInput.value.trim();
+      if (text) {
+        todos.push({ text, completed: false });
+        localStorage.setItem('todos', JSON.stringify(todos));
+        renderTodos();
+        todoInput.value = '';
+      }
+    }
+
+    function toggleTodoComplete(index) {
+      todos[index].completed = !todos[index].completed;
+      localStorage.setItem('todos', JSON.stringify(todos));
+      renderTodos();
+    }
+
+    function deleteTodo(index) {
+      todos.splice(index, 1);
+      localStorage.setItem('todos', JSON.stringify(todos));
+      renderTodos();
+    }
+
+    addTodo.addEventListener('click', addNewTodo);
+    todoInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addNewTodo();
+    });
+
+    // Toggle To-Do List
+    toggleTodo.addEventListener('click', () => {
+      todoContainer.classList.toggle('minimized');
+      const icon = toggleTodo.querySelector('i');
+      if (todoContainer.classList.contains('minimized')) {
+        icon.className = 'fas fa-plus';
+      } else {
+        icon.className = 'fas fa-minus';
+      }
+    });
+
+    // ===== อนุภาคพื้นหลัง =====
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
@@ -995,6 +1481,9 @@
     const today = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('lastUpdated').textContent = today.toLocaleDateString('th-TH', options);
+    
+    // Initialize To-Do List
+    renderTodos();
   </script>
 </body>
 </html>
